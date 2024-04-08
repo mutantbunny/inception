@@ -10,8 +10,8 @@ skip-networking=0\n\
 bind-address=0.0.0.0\n" >> /etc/mysql/my.cnf
 
 RUN mkdir -p /var/run/mysqld && \
-    chown -R mysql:mysql /var/run/mysqld && \
-    chmod 777 /var/run/mysqld
+chown -R mysql:mysql /var/run/mysqld && \
+chmod 777 /var/run/mysqld
 
 COPY ./tools/db_init.sh .
 

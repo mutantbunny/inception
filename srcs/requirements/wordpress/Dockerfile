@@ -9,7 +9,7 @@ apt-get install -y php-fpm php-mysql mariadb-client wget
 
 WORKDIR /var/www/html
 
-RUN wget -q https://wordpress.org/latest.tar.gz && tar -xzf latest.tar.gz && \
+RUN wget https://wordpress.org/latest.tar.gz && tar -xzvf latest.tar.gz && \
 rm latest.tar.gz && \
 sed -i "s/^listen\s=.*/listen = 0.0.0.0:9000/g" /etc/php/7.4/fpm/pool.d/www.conf
 
