@@ -1,0 +1,71 @@
+version: "3.8"
+
+services:
+  mariadb:
+    image: mariadb:0.1
+    container_name: mariadb
+    env_file:
+      - .env
+    build:
+      context: ./requirements/mariadb
+      args:
+        - MYSQL_DATABASE=${MYSQL_DATABASE}
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        - MYSQL_USER=${MYSQL_USER}
+        - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_volume:/var/lib/mysql
+    networks:
+      - inception_net
+    restart: always
+
+  nginx:
+    image: nginx:0.1
+    container_name: nginx
+    build: ./requirements/nginx
+    ports:
+      - "443:443"
+    volumes:
+      - wp_volume:/var/www/html
+    networks:
+      - inception_net
+    restart: always
+
+  wordpress:
+    image: wordpress:0.1
+    container_name: wordpress
+    env_file:
+      - .env
+    build:
+      context: ./requirements/wordpress
+      args:
+        - MYSQL_HOST=${MYSQL_HOST}
+        - MYSQL_DATABASE=${MYSQL_DATABASE}
+        - MYSQL_USER=${MYSQL_USER}
+        - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+      - "9000:9000"
+    volumes:
+      - wp_volume:/var/www/html
+    networks:
+      - inception_net
+    restart: always
+
+volumes:
+  wp_volume:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/coelho/code/42/inception-volumes/wordpress
+      o: bind
+  db_volume:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/coelho/code/42/inception-volumes/mariadb
+      o: bind
+
+networks:
+  inception_net:
