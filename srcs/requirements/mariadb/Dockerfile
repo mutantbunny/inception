@@ -1,6 +1,6 @@
 FROM debian:bullseye
 
-ARG MYSQL_DATABASE MYSQL_USER MYSQL_PASSWORD MYSQL_ROOT_PASSWORD
+ARG MYSQL_DATABASE MYSQL_USER MYSQL_PASSWORD MYSQL_ROOT_PASSWORD WP_USER WP_HASH WP_ADM_USER WP_ADM_HASH
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
 apt-get install -y mariadb-server
@@ -14,8 +14,9 @@ chown -R mysql:mysql /var/run/mysqld && \
 chmod 777 /var/run/mysqld
 
 COPY ./tools/db_init.sh .
+COPY ./conf/dump.sql .
 
-RUN service mariadb start && ./db_init.sh && rm -f db_init.sh
+RUN service mariadb start && ./db_init.sh && rm -f db_init.sh dump.sql
 
 EXPOSE 3306
 

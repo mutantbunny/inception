@@ -1,16 +1,17 @@
 COMPOSE_FILE=./srcs/docker-compose.yml
-DB_VOLUME_DIR= /home/login/data/mariadb
-WP_VOLUME_DIR= /home/login/data/wordpress
+DB_VOLUME_DIR= /home/coelho/data/mariadb
+WP_VOLUME_DIR= /home/coelho/data/wordpress
 
 all: up
 
 up: mk_vols
-	docker-compose -f ${COMPOSE_FILE} up --build
+	docker-compose -f ${COMPOSE_FILE} up
 
 build: mk_vols
 	docker-compose -f ${COMPOSE_FILE} build --no-cache
 
 mk_vols:
+
 	mkdir -p ${DB_VOLUME_DIR}
 	mkdir -p ${WP_VOLUME_DIR}
 

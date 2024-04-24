@@ -2,8 +2,6 @@ FROM debian:bullseye
 
 ARG MYSQL_HOST MYSQL_DATABASE MYSQL_USER MYSQL_PASSWORD
 
-RUN echo "Vars: ${MYSQL_HOST} ${MYSQL_DATABASE} ${MYSQL_USER} ${MYSQL_PASSWORD}"
-
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
 apt-get install -y php-fpm php-mysql mariadb-client wget
 
