@@ -23,7 +23,7 @@ MYSQL_SCRIPT
 
 sed -i "s/{WP_ADM_USER}/${WP_ADM_USER}/g" dump.sql
 sed -i "s@{WP_ADM_HASH}@${WP_ADM_HASH}@g" dump.sql
-sed -i "s/{WP_USER/}${WP_USER}/g" dump.sql
+sed -i "s/{WP_USER}/${WP_USER}/g" dump.sql
 sed -i "s/{WP_HASH}/${WP_HASH}/g" dump.sql
 
 grep "INSERT INTO \`wp_users\` VALUES" dump.sql

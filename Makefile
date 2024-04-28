@@ -2,16 +2,15 @@ COMPOSE_FILE=./srcs/docker-compose.yml
 DB_VOLUME_DIR= /home/coelho/data/mariadb
 WP_VOLUME_DIR= /home/coelho/data/wordpress
 
-all: up
+all: down build up
 
-up: mk_vols
-	docker-compose -f ${COMPOSE_FILE} up
+up: vols
+	docker-compose -f ${COMPOSE_FILE} up -d
 
-build: mk_vols
+build: vols
 	docker-compose -f ${COMPOSE_FILE} build --no-cache
 
-mk_vols:
-
+vols:
 	mkdir -p ${DB_VOLUME_DIR}
 	mkdir -p ${WP_VOLUME_DIR}
 
@@ -22,6 +21,8 @@ clean:
 	docker-compose -f ${COMPOSE_FILE} rm -s -f
 
 fclean: down
-	docker-compose -f ${COMPOSE_FILE} rm -s -v -f
+	docker-compose -f ${COMPOSE_FILE} rm -s -f -v
+	rm -rf ${DB_VOLUME_DIR}
+	rm -rf ${WP_VOLUME_DIR}
 
-.PHONY: all build clean down fclean mk_vols up
+.PHONY: all build clean down fclean vols up
