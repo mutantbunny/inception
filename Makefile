@@ -17,7 +17,7 @@ build: mk_vols host
 	docker-compose -f ${COMPOSE_FILE} build
 
 up:
-	docker-compose -f ${COMPOSE_FILE} up
+	docker-compose -f ${COMPOSE_FILE} up -d
 
 down:
 	docker-compose -f ${COMPOSE_FILE} down
