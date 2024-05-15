@@ -1,6 +1,6 @@
 COMPOSE_FILE=./srcs/docker-compose.yml
-DB_VOLUME_DIR=/home/coelho/data/mariadb
-WP_VOLUME_DIR=/home/coelho/data/wordpress
+DB_VOLUME_DIR=/home/gmachado/data/mariadb
+WP_VOLUME_DIR=/home/gmachado/data/wordpress
 HOSTS_FILE=/etc/hosts
 
 all: up
